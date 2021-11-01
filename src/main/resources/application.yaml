@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  datasource:
+    username: root
+    password: 123
+    #要加时区
+    url: jdbc:mysql://localhost:3306/bilibili?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#整合mybatis
+mybatis:
+  type-aliases-package: com.zty.Dao
+  mapper-locations: classpath:mapper/*.xml
+
+#没有杠，是资源下边的

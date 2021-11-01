@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zty.mapper.MainMapper">
+
+    <select id="queryDynamicByMid" resultType="Dynamic" parameterType="String">
+        select *
+        from bilibili.dynamic
+        where mid = #{mid}
+        order by time
+    </select>
+    <select id="queryUploaderByMid" resultType="Uploader" parameterType="int">
+        select * from uploader where mid=#{mid}
+    </select>
+    <select id="queryVideoByMid" resultType="Video" parameterType="int">
+        select *
+        from bilibili.video
+        where mid = #{mid}
+        order by created
+    </select>
+    <select id="queryAllUploader" resultType="Uploader">
+        select *
+        from uploader
+    </select>
+    <select id="queryHot" resultType="Hot" parameterType="String">
+        select * from hot where web = #{web} order by hotscore desc
+    </select>
+    <insert id="addDynamic" parameterType="Dynamic">
+        replace into bilibili.dynamic (mid, time, type, dynamic_id, view, repost, comment, `like`, bvid, title)
+            value (#{uid},#{timestamp}, #{type}, #{dynamic_id}, #{view},#{repost},#{comment}, #{like}, #{bvid},#{title})
+    </insert>
+    <insert id="addUploader" parameterType="Uploader">
+        replace into bilibili.uploader (author, follower, mid)
+            value (#{author}, #{follower},#{mid})
+    </insert>
+    <insert id="addVideo" parameterType="Video">
+        replace into bilibili.video (mid, bvid, title, play, comment, created)
+            value (#{mid}, #{bvid},#{title},#{play},#{comment},#{created})
+    </insert>
+    <insert id="addSuggestion" parameterType="String">
+        replace into bilibili.suggest
+            value (#{s})
+    </insert>
+    <insert id="addHot" parameterType="Hot">
+        replace into hot (web, title, hotscore, id) VALUE (#{web},#{title},#{hotscore},#{id})
+    </insert>
+</mapper>
